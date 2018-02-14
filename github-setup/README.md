@@ -16,7 +16,7 @@
     └── [folder/file]
 
 
-## [Potential Bugs](https://github.com/<>/alihm/issues)
+## [Potential Bugs](https://github.com/ali92hm/<>/issues)
 
 ## [To do](https://github.com/ali92hm/<>/milestones)
 
