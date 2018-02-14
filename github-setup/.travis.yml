@@ -1,0 +1,27 @@
+sudo: required
+
+language:
+
+env:
+
+services:
+  - docker
+
+install:
+
+
+before_script:
+  - docker build -t
+  - docker run -d -e
+
+script:
+  # Integration Tests
+  - sleep 5
+  - curl -I -m 5 localhost:$PORT
+  - curl -m 5 localhost:$PORT/api/health
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+      docker push $DOCKER_USERNAME/$PROJECT_NAME;
+    fi
