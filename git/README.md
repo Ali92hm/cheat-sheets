@@ -1,4 +1,4 @@
-# Git
+# Git cheat sheet
 
 ## Setup
 
@@ -368,6 +368,26 @@ pick <commit_id>
 squash <commit_id2>
 squash <commit_id3>
 ```
+
+### Conflicts
+In this example, `README.md` has conflicts. Open that file and look for the following:
+
+```
+   <<<<<<< HEAD
+   some code
+   =========
+   some code
+   >>>>>>> new-commit
+```
+
+If you want to keep one branch's version of the code, you can use `--ours` or `--theirs`:
+
+```
+git checkout --ours README.md
+```
+
+- When *merging*, use `--ours` to keep changes from the local branch, or `--theirs` to keep changes from the other branch.
+- When *rebasing*, use `--theirs` to keep changes from the local branch, or `--ours` to keep changes from the other branch.
 
 ## Undo
 
