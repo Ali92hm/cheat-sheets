@@ -1,73 +1,106 @@
-# Docker Cheatsheet
+# Docker Cheat Sheet
 
 ## Linux Installation
 ```
 curl -sSL https://get.docker.com/ | sh
 ```
 
-
 ## Useful commands
 
 ### Build
-`docker build -t <tag> .`
+```
+docker build -t <tag> .
+```
 
 ### Build with arguments
-* `docker build --build-arg NAME=value`
+```
+docker build --build-arg NAME=value
+```
 
 ### Tagging
-* `docker tag <image-id> <username>/<image name>:<version or tag>`
+```
+docker tag <image-id> <username>/<image name>:<version or tag>
+```
 
 ### Push
-* `docker push <image name>`
+```
+docker push <image name>
+```
 
 ### Running a container interactive mode
-* `docker run -it <image name>`
+```
+docker run -it <image name>
+```
 
 ### Running a container daemon mode
-* `docker run -d <image name>`
+```
+docker run -d <image name>
+```
 
 ### Running a container with name
-* `docker run --name=<name> <image-name>`
+```
+docker run --name=<name> <image-name>
+```
 
 ### Run container with a networking type
-* `docker run --net=<type>`
+```
+docker run --net=<type>
+```
 
 ### Exposing ports
-* `docker run -p <image-name>` assigns random ports to the EXPOSE ports in dockerfile
-* `docker run -p $HOSTPORT:$CONTAINERPORT <image-name>`
+```
+docker run -p <image-name> # assigns random ports to the EXPOSE ports in dockerfile
+docker run -p $HOSTPORT:$CONTAINERPORT <image-name>
+```
 
 ### Mounting Volumes
-* `docker run -v /path`
-* `docker run -v <host/path>:<container/path>`
+```
+docker run -v /path
+docker run -v <host/path>:<container/path>
+```
 
 ### Attach to stopped container
-* `docker commit $STOPPED_CONTAINER user/test_image`
+```
+docker commit $STOPPED_CONTAINER user/test_image
+```
 
 ### Start/run with a different entry point (/bin/bash)
-* `docker run -it --entrypoint=/bin/bash user/test_image`
-* `docker exec -it <id or name> /bin/bash`
+```
+docker run -it --entrypoint=/bin/bash user/test_image
+docker exec -it <id or name> /bin/bash
+```
 
 
 ### Getting Logs
-* `docker logs <container>`
-* `docker container logs <container> -f` follow logs
+```
+docker logs <container>
+docker container logs <container> -f # follow logs
+```
 
 ### Remove image
-`docker rmi -f <image id>`
+```
+docker rmi -f <image id>
+```
 
 ### Remove all stopped containers
-* `docker rm -f $(docker ps -aq)`
+```
+docker rm -f $(docker ps -aq)
+```
 
 ### Stop all containers
-* `docker stop $(docker ps -q)`
+```
+docker stop $(docker ps -q)
+```
 
 ### Remove all images
-* `docker rmi -f $(docker images -q)`
+```
+docker rmi -f $(docker images -q)
+```
 
 ### Remove everything
-* `docker system prune -af`
-
-
+```
+docker system prune -af
+```
 
 ## Starting and Stopping
 
