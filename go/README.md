@@ -11,44 +11,44 @@ Make sure to set `$GOPATH` in `.profile`
 export GOPATH=${HOME}/go
 ```
 
-### Useful commands
-#### Pulling dependencies
+## Useful commands
+### Pulling dependencies
 ```
 go get github.com/<package-path>
 ```
 
-#### Building project
+### Building project
 ```
 go build
 ```
 
-#### Build and run
+### Build and run
 ```
 go run
 ```
 
-#### Cleaning the working directory
+### Cleaning the working directory
 ```
 go clean
 ```
 
-#### Compile and install packages
+### Compile and install packages
 ```
 go install
 ```
 This command compiles all packages and generates files, then moves them to $GOPATH/pkg or $GOPATH/bin.
 
-#### Lint the source code
+### Lint the source code
 ```
 go fmt
 ```
 
-#### Run tests
+### Run tests
 ```
 go test // runs all files named *_test.go
 ```
 
-#### Documentation 
+### Documentation 
 ```
 godoc -http=:8080
 ```
@@ -61,7 +61,7 @@ Go comes with an official style guide. Use `go fmt` to format files. There is Su
 
 ## Basics
 ### Hello World
-```
+```GO
 package main
 
 import (
