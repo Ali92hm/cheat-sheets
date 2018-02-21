@@ -8,7 +8,7 @@ Cheat sheet for Python 3
 * `list1.extend([list2])` returns `None`
 * `list1.extend(value)` returns `None`
 
-## Equality operators
+### Equality operators
 * `is` checks that 2 arguments refer to the same object (memory location)
 * `==` checks that 2 arguments have the same value.
 
