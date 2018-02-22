@@ -149,24 +149,59 @@ docker system prune -af
 * `ONBUILD [<instruction>]` Adds a trigger instruction when the image is used as the base for another build.
 * `STOPSIGNAL <signal>` Sets the system call signal that will be sent to the container to exit.
 
+### Best practices
+#### Use `.dockerignore` file
+This prevents unnecessary files in docker directory to be passed to the docker engine.
 
-### Examples
+#### Use multi-stage builds
+Multi-stage builds result in slimmer docker files.
+
+#### LABEL
+An image can have more than one label. Prior to Docker 1.10, it was recommended to combine all labels into a single LABEL instruction, to prevent extra layers from being created. This is no longer necessary, but combining labels is still supported.
+
 ```
-FROM node:carbon-alpine
-
-LABEL MAINTAINER <email>
-
-# Setting the working directory
-WORKDIR /usr/src/
-
-# Setting the env variables for npm install and execution
-ENV NODE_ENV=production
-EXPOSE 3000
-
-# Copy files and installing dependencies
-COPY . .
-RUN npm install
-
-# Running the application
-CMD npm start
+LABEL com.example.version="0.0.1-beta"
+LABEL vendor="ACME Incorporated"
+LABEL com.example.release-date="2015-02-12"
+LABEL com.example.version.is-production=""
 ```
+
+#### Sort multi-line arguments
+* Never use `apt-get upgrade`. Updating the package list is enough.
+* Remove the `apt-get` list after installing the packages
+
+```
+RUN apt-get update && apt-get install -y \
+  bzr \
+  cvs \
+  git \
+  mercurial \
+  subversion \
+  && rm -rf /var/lib/apt/lists/*
+```
+> Note: The official Debian and Ubuntu images automatically run apt-get clean, so explicit invocation is not required.
+
+#### Use CMD
+Always use CMD in the form below
+
+```
+CMD [“executable”, “param1”, “param2”…]
+```
+
+#### ENV
+Use env to version everything. 
+
+```
+ENV PG_MAJOR 9.3
+ENV PG_VERSION 9.3.4
+RUN curl -SL http://example.com/postgres-$PG_VERSION.tar.xz | tar -xJC /usr/src/postgress && …
+ENV PATH /usr/local/postgres-$PG_MAJOR/bin:$PATH
+```
+
+#### ADD or COPY
+* Always use `COPY`
+* Use `ADD` to extract `.tar` files or remote URL support.
+
+#### WORKDIR
+For clarity and reliability, you should always use absolute paths for your `WORKDIR`
+
