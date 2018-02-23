@@ -2,6 +2,24 @@
 
 ## Setup
 
+### Code organization
+* Go programmers typically keep all their Go code in a single workspace.
+* A workspace contains many version control repositories (managed by Git, for example).
+* Each repository contains one or more packages.
+* Each package consists of one or more Go source files in a single directory.
+The path to a package's directory determines its import path.
+
+> Note that this differs from other programming environments in which every project has a separate workspace and workspaces are closely tied to version control repositories.
+
+### Workspace
+A workspace is a directory hierarchy with three directories at its root:
+
+* `src` contains Go source files,
+* `pkg` contains package objects, and
+* `bin` contains executable commands.
+
+The `go tool` builds source packages and installs the resulting binaries to the `pkg` and `bin` directories.
+ 
 ### $GOPATH
 Go uses the `$GOPATH` directory to manage files, packages, and dependencies.
 
@@ -170,11 +188,58 @@ delete(numbers, "one") // delete value associated with a key
 v, ok := numbers["one"] // ok is false since key doesn't exists
 ```
 
+#### Pointers
+Go has pointer and they act like C/C++ pointers
+
+```GO
+i, j := 42, 2701
+
+p := &i         // point to i
+fmt.Println(*p) // read i through the pointer
+*p = 21         // set i through the pointer
+fmt.Println(i)  // see the new value of i
+
+p = &j         // point to j
+*p = *p / 37   // divide j through the pointer
+fmt.Println(j) // see the new value of j
+```
+
 #### Error types
+* Native `error` type
+
 ```GO
 err := errors.New("emit macho dwarf: elf header corrupted")
 if err != nil {
     fmt.Print(err)
+}
+```
+
+* Custom error type and handling them
+
+```GO
+type ErrNegativeSqrt struct {
+    val float64
+    message string
+}
+
+func (e *ErrNegativeSqrt) Error() string {
+    return fmt.Sprintf("%v: %v", e.message , e.val)
+}
+
+func MySqrt(x float64) (float64, error) {
+    if x < 0 {
+        return 0, &ErrNegativeSqrt{x, "cannot Sqrt negative number"}
+    }
+    return math.Sqrt(x), nil
+}
+
+func main() {
+    i, err := MySqrt(-10)
+    if err != nil {
+        fmt.Printf(err)
+        return
+    }
+    fmt.Println(i)
 }
 ```
 
@@ -188,7 +253,45 @@ type Point struct {
 }
 
 v := Vertex{1, 2} // instantiation
+P := Vertex{X:1, Y:2}
 ```
+
+* Nested objects
+
+```GO
+type Human struct {
+	name   string
+	age    int
+	weight int
+}
+
+type Student struct {
+	Human     // embedded field, it means Student struct includes all fields that Human has.
+	int       // using primitives as embedded fields
+	specialty string
+}
+
+
+// instantiate and initialize a student
+mark := Student{Human{"Mark", 25, 120}, "Computer Science"}
+
+// access or modifying fields fields
+fmt.Println("His name is ", mark.name)
+fmt.Println("His name is ", mark.Human)
+fmt.Println("His name is ", mark.Human.age)
+mark.age = 100
+fmt.Println("His specialty is ", mark.specialty)
+```
+
+#### Typedef 
+Like C, Go has typedef to map a name to a type.
+
+```GO
+type IPAddr [4]byte
+type MyFloat float32
+```
+
+If an embedded object has the same field the outer fields get upper access levels, which means when you access student.phone, we will get the field called phone in student, not the one in the Human struct. This feature can be simply seen as field overloading.
 
 ### Flow
 #### `if` statement
@@ -373,9 +476,14 @@ func doSomething() {
 ```
 
 #### `main` and `init`
+Go has two retentions which are called `main` and `init`, where init can be used in all packages and main can only be used in the main package. These two functions are not able to have arguments or return values. Even though we can write many `init` functions in one package, I strongly recommend writing only one `init` function for each package.
+
+Go programs will call `init()` and `main()` automatically, so you don't need to call them by yourself. For every package, the init function is optional, but package main has one and only one main function.
 
 
+### Object oriented
 
+### Concurrency
 
 ### Allocation
 `make` does memory allocation for built-in models, such as `map`, `slice`, and `channel`, while `new` is for types memory allocation.
