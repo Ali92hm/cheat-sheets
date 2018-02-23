@@ -19,7 +19,7 @@ A workspace is a directory hierarchy with three directories at its root:
 * `bin` contains executable commands.
 
 The `go tool` builds source packages and installs the resulting binaries to the `pkg` and `bin` directories.
- 
+
 ### $GOPATH
 Go uses the `$GOPATH` directory to manage files, packages, and dependencies.
 
@@ -260,15 +260,15 @@ P := Vertex{X:1, Y:2}
 
 ```GO
 type Human struct {
-	name   string
-	age    int
-	weight int
+    name   string
+    age    int
+    weight int
 }
 
 type Student struct {
-	Human     // embedded field, it means Student struct includes all fields that Human has.
-	int       // using primitives as embedded fields
-	specialty string
+    Human     // embedded field, it means Student struct includes all fields that Human has.
+    int       // using primitives as embedded fields
+    specialty string
 }
 
 
@@ -283,7 +283,7 @@ mark.age = 100
 fmt.Println("His specialty is ", mark.specialty)
 ```
 
-#### Typedef 
+#### Typedef
 Like C, Go has typedef to map a name to a type.
 
 ```GO
