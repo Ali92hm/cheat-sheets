@@ -3,7 +3,7 @@
 ## Setup
 
 ### $GOPATH
-Go uses the `$GOPATH` directory to manage files, packages, and dependencies. 
+Go uses the `$GOPATH` directory to manage files, packages, and dependencies.
 
 Make sure to set `$GOPATH` in `.profile`
 
@@ -48,7 +48,7 @@ go fmt
 go test // runs all files named *_test.go
 ```
 
-### Documentation 
+### Documentation
 ```
 godoc -http=:8080
 ```
@@ -69,7 +69,7 @@ var variableName type
 var variableName1, variableName2, variableName3 type // multiple variable declaration
 var variableName type = value // variable declaration and initialization
 var vname1, vname2, vname3 type = v1, v2, v3 // multiple variable declaration and initialization
-vname1, vname2, vname3 := v1, v2, v3 // short assignment (type is inferred from rhs) 
+vname1, vname2, vname3 := v1, v2, v3 // short assignment (type is inferred from rhs)
 ```
 
 ### Blank `_`
@@ -98,9 +98,9 @@ var isActive bool
 * `int64`
 
 `int` uses 32-bit in 32-bit operating systems, and 64-bit in 64-bit operating systems.
- 
+
 ##### uint
-* `uint8` (alias `byte`) 
+* `uint8` (alias `byte`)
 * `uint16`
 * `uint32`
 * `uint64`
@@ -167,7 +167,7 @@ rating := map[string]float32 {"C":5, "Go":4.5, "Python":4.5, "C++":2 } // map li
 numbers := make(map[string]int) // dynamically allocated
 numbers["one"] = 1  // assign value by key
 delete(numbers, "one") // delete value associated with a key
-v, ok := numbers["one"] // ok is false since key doesn't exists 
+v, ok := numbers["one"] // ok is false since key doesn't exists
 ```
 
 #### Error types
@@ -187,7 +187,7 @@ type Point struct {
   Y int
 }
 
-v := Vertex{1, 2} // instantiation 
+v := Vertex{1, 2} // instantiation
 ```
 
 ### Flow
@@ -197,24 +197,24 @@ v := Vertex{1, 2} // instantiation
 
 ```GO
 if x == 0 {
-	return 0
+    return 0
 } else if x < 0 {
-	return -x
+    return -x
 } else {
    return x
 }
 ```
 
 * You can put one statement before the condition. Variable `a` is not defined outside `if` statement
-    	
+
 ```GO
-	
-	if a := b + c; a < 42 {
-		return a
-	} else {
-		return a - 42
-	}
-    
+
+    if a := b + c; a < 42 {
+        return a
+    } else {
+        return a - 42
+    }
+
     fmt.Println(a) // Compile error
 ```
 
@@ -318,7 +318,7 @@ Go supports functions with a variable number of arguments.
 ```GO
 func myfunc(arg ...int) {
     for _, n := range arg {
-	   fmt.Printf("And the number is: %d\n", n)
+       fmt.Printf("And the number is: %d\n", n)
     }
 }
 ```
@@ -329,13 +329,13 @@ This is exactly how it works in C++
 ```GO
 // pass by value
 func add1(a int) int {
-	a = a + 1 // we change value of a, but the original value is untouched
-	return a
+    a = a + 1 // we change value of a, but the original value is untouched
+    return a
 }
 
 func add1(a *int) int {
-	*a = *a + 1 // we changed value of a, and the original value is updated
-	return *a
+    *a = *a + 1 // we changed value of a, and the original value is updated
+    return *a
 }
 ```
 
@@ -344,15 +344,15 @@ You can have many `defer` statements in one function; they will execute in rever
 
 ```GO
 func ReadWrite() bool {
-	file.Open("file")
-	defer file.Close()
-	if failureX {
-		return false
-	}
-	if failureY {
-		return false
-	}
-	return true
+    file.Open("file")
+    defer file.Close()
+    if failureX {
+        return false
+    }
+    if failureY {
+        return false
+    }
+    return true
 }
 ```
 
@@ -362,13 +362,13 @@ func ReadWrite() bool {
 
 ```GO
 func doSomething() {
-	defer func() {
-		if x := recover(); x != nil {
-			fmt.Println("Recovering from", x)
-		}
-	}()
+    defer func() {
+        if x := recover(); x != nil {
+            fmt.Println("Recovering from", x)
+        }
+    }()
 
-	panic("Oops")
+    panic("Oops")
 }
 ```
 
