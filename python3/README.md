@@ -43,3 +43,5 @@ Cheat sheet for Python 3
   * `dictionary.items()`
 * Return directly from a generator `yield from gen()`
 * `round` rounds `0.5` to the nearest even integer
+
+https://github.com/crazyguitar/pysheeet
